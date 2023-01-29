@@ -1,3 +1,5 @@
+import s from './MainPage.module.css';
+
 export function MainPage() {
-  return <div>MainPage</div>;
+  return <div className={s.filesystem}>MainPage</div>;
 }
