@@ -1,11 +1,5 @@
-import { FileSystemItem } from '../../../FileSystemItem';
-
-import s from './MainPage.module.css';
+import { FileSystem } from '../../../FileSystem';
 
 export function MainPage() {
-  return (
-    <div className={s.filesystem}>
-      <FileSystemItem />
-    </div>
-  );
+  return <FileSystem />;
 }

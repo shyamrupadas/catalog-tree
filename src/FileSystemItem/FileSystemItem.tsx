@@ -1,16 +1,19 @@
 import { useState } from 'react';
 
 import FolderIcon from '@mui/icons-material/Folder';
+import { Box, Typography } from '@mui/material';
 
-import s from './FileSystemItem.module.css';
+interface IFileSystemItem {
+  data: { title: string; childs: string[] };
+}
 
-export function FileSystemItem() {
+export function FileSystemItem({ data }: IFileSystemItem) {
   const [isHover, setIsHover] = useState(false);
 
   return (
-    <div className={s.fileSystemItem}>
+    <Box display={'flex'} bgcolor="#252525" height={'100%'}>
       <FolderIcon fontSize="small" />
-      ASSETS
-    </div>
+      <Typography>{data.title.toUpperCase()}</Typography>
+    </Box>
   );
 }
