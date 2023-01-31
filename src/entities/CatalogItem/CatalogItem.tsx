@@ -6,13 +6,24 @@ import FolderIcon from '@mui/icons-material/Folder';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import { Box, Stack, Typography } from '@mui/material';
+import { observer } from 'mobx-react-lite';
 
-interface IFileSystemItem {
-  data: { title: string; childs: string[] };
+import { catalogStore } from '../../vidgets/Catalog/Catalog.store';
+
+interface ICatalogItem {
+  id: string;
+  title: string;
+  isExpand: boolean;
+  childs?: any;
 }
 
-export function FileSystemItem({ data }: IFileSystemItem) {
+export const CatalogItem = observer(({ id, title, isExpand, childs }: ICatalogItem) => {
   const [isActive, setIsActive] = useState(false);
+
+  const handleClick = () => {
+    catalogStore.toggleExpand(id);
+    setIsActive(!isActive);
+  };
 
   return (
     <>
@@ -23,12 +34,12 @@ export function FileSystemItem({ data }: IFileSystemItem) {
         height={'26px'}
         p="0 16.5px 0 14px"
         bgcolor={isActive ? '#2e2e2e' : ''}
-        onClick={() => setIsActive(!isActive)}
+        onClick={handleClick}
       >
         <Box display={'flex'}>
-          {isActive ? <KeyboardArrowDownIcon fontSize="small" /> : <KeyboardArrowRightIcon fontSize="small" />}
+          {isExpand ? <KeyboardArrowDownIcon fontSize="small" /> : <KeyboardArrowRightIcon fontSize="small" />}
           <FolderIcon fontSize="small" color="folder" />
-          <Typography ml="7.5px">{data.title.toUpperCase()}</Typography>
+          <Typography ml="7.5px">{title}</Typography>
         </Box>
         {isActive && (
           <Box>
@@ -37,13 +48,13 @@ export function FileSystemItem({ data }: IFileSystemItem) {
           </Box>
         )}
       </Box>
-      {isActive && (
-        <Stack>
-          {data.childs.map(id => (
-            <FileSystemItem key={id} data={{ title: id, childs: [] }} />
+      {isExpand && (
+        <Stack pl={2}>
+          {childs.map(id => (
+            <CatalogItem key={id} title={id} isExpand={false} />
           ))}
         </Stack>
       )}
     </>
   );
-}
+});

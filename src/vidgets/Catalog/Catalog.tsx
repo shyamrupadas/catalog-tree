@@ -1,8 +1,10 @@
-import { Box, Stack } from '@mui/material';
+import { Box, Stack, Typography } from '@mui/material';
+import { observer } from 'mobx-react-lite';
 
-import { FileSystemItem } from '../FileSystemItem';
+import { CatalogItem } from '../../entities/CatalogItem';
+import { Folder } from '../../features/Folder';
 
-const folderIds = ['1', '2', '3', '4'];
+import { catalogStore } from './Catalog.store';
 
 interface IFolderValues {
   [key: string]: { title: string; childs: string[] };
@@ -30,14 +32,14 @@ const shots = {
   values: {},
 };
 
-export function FileSystem() {
+export const Catalog = observer(() => {
   return (
     <Box width="249px" height="100%" p="18px 0" bgcolor="#252525">
       <Stack>
-        {folderIds.map(id => (
-          <FileSystemItem key={id} data={folderValues[id as keyof IFolderValues]} />
+        {catalogStore.folderIds.map(id => (
+          <Folder key={id} data={catalogStore.folders[id]} id={id} />
         ))}
       </Stack>
     </Box>
   );
-}
+});
