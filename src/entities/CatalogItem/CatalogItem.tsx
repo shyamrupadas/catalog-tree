@@ -13,15 +13,15 @@ import { catalogStore } from '../../vidgets/Catalog/Catalog.store';
 interface ICatalogItem {
   id: string;
   title: string;
-  isExpand: boolean;
-  childs?: any;
+  isExpand?: boolean;
+  onClick: () => void;
 }
 
-export const CatalogItem = observer(({ id, title, isExpand, childs }: ICatalogItem) => {
+export const CatalogItem = observer(({ id, title, isExpand, onClick }: ICatalogItem) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
-    catalogStore.toggleExpand(id);
+    onClick();
     setIsActive(!isActive);
   };
 
@@ -48,13 +48,6 @@ export const CatalogItem = observer(({ id, title, isExpand, childs }: ICatalogIt
           </Box>
         )}
       </Box>
-      {isExpand && (
-        <Stack pl={2}>
-          {childs.map(id => (
-            <CatalogItem key={id} title={id} isExpand={false} />
-          ))}
-        </Stack>
-      )}
     </>
   );
 });
