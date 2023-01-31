@@ -11,6 +11,9 @@ export const theme = createTheme({
     warning: {
       main: '#ff005c',
     },
+    folder: {
+      main: '#ffebb7',
+    },
     background: {
       default: '#202020',
     },

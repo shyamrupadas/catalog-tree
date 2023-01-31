@@ -18,7 +18,7 @@ const folderValues: IFolderValues = {
 const sequenses = {
   ids: ['5', '6', '7', '8'],
   values: {
-    5: 'foo',
+    5: 'infc',
     6: 'foo1',
     7: 'foo2',
     8: 'foo3',
@@ -32,7 +32,7 @@ const shots = {
 
 export function FileSystem() {
   return (
-    <Box width={'249px'} height="100%">
+    <Box width="249px" height="100%" p="18px 0" bgcolor="#252525">
       <Stack>
         {folderIds.map(id => (
           <FileSystemItem key={id} data={folderValues[id as keyof IFolderValues]} />
