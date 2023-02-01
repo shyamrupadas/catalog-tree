@@ -10,8 +10,6 @@ import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { observer } from 'mobx-react-lite';
 
-import { catalogStore } from '../../vidgets/Catalog/Catalog.store';
-
 type CatalogItemType = 'folder' | 'sequence' | 'shot';
 
 interface ICatalogItem {
@@ -28,12 +26,18 @@ const leftPaddingMap = {
   shot: '42px',
 };
 
-const StyledCatalogItem = styled(Box)<{ isActive?: boolean; type: CatalogItemType }>(({ isActive, type }) => ({
+interface CatalogItemProps {
+  isActive?: boolean;
+  type: CatalogItemType;
+}
+const StyledCatalogItem = styled(Box, {
+  shouldForwardProp: prop => prop !== 'isActive' && prop !== 'type',
+})<CatalogItemProps>(({ isActive, type }) => ({
   display: 'flex',
   justifyContent: 'space-between',
   alignItems: 'center',
-  backgroundColor: isActive && '#2e2e2e',
-  borderRight: isActive && '1px solid #ffb800',
+  backgroundColor: isActive ? '#2e2e2e' : '',
+  borderRight: isActive ? '1px solid #ffb800' : '',
   paddingRight: '16.5px',
   paddingLeft: leftPaddingMap[type],
   cursor: 'default',
@@ -62,8 +66,8 @@ export const CatalogItem = observer(({ type, id, title, isExpand, onClick }: ICa
 
         {isActive && (
           <Box>
-            <AddBoxIcon fontSize="9" />
-            <DeleteIcon fontSize="9" />
+            <AddBoxIcon fontSize="small" />
+            <DeleteIcon fontSize="small" />
           </Box>
         )}
       </StyledCatalogItem>
