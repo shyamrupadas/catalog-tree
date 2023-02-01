@@ -60,7 +60,7 @@ export const CatalogItem = observer(({ type, id, title, isExpand, onClick }: ICa
         <Box display={'flex'}>
           {isExpand ? <KeyboardArrowDownIcon fontSize="small" /> : <KeyboardArrowRightIcon fontSize="small" />}
 
-          {type === 'shot' ? <MovieIcon fontSize="small" color="folder" /> : <FolderIcon fontSize="small" color="folder" />}
+          {type === 'shot' ? <MovieIcon fontSize="small" color="info" /> : <FolderIcon fontSize="small" color="info" />}
           <Typography ml="7.5px">{title}</Typography>
         </Box>
 
