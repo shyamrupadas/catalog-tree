@@ -1,56 +1,66 @@
 import { makeAutoObservable } from 'mobx';
 
 export interface IFolders {
-  [key: string]: { title: string; isExpand: boolean; sequenceIds: string[]; sequences: ISequences };
+  [key: string]: {
+    title: string;
+    isExpand: boolean;
+    sequenceIds: string[];
+  };
 }
 
 export interface ISequences {
   [key: string]: {
     title: string;
     isExpand: boolean;
-    shotIds?: string[];
-    shots?: IShots;
+    shotIds: string[];
   };
 }
 
 export interface IShots {
   [key: string]: string;
 }
+
 class Store {
   constructor() {
     makeAutoObservable(this);
   }
+
+  folderIds = ['1', '2', '3', '4'];
 
   folders: IFolders = {
     1: {
       title: 'ASSETS',
       isExpand: true,
       sequenceIds: ['5'],
-      sequences: {
-        5: {
-          title: 'INFC',
-          isExpand: false,
-          shotIds: ['6', '7', '8', '9', '10', '11', '12', '13'],
-          shots: {
-            6: 'INFC_0010',
-            7: 'INFC_0020',
-            8: 'INFC_0040',
-            9: 'INFC_0060',
-            10: 'INFC_0120',
-            11: 'INFC_0250',
-            12: 'INFC_0280',
-            13: 'INFC_0010',
-          },
-        },
-      },
     },
-    2: { title: 'RND', isExpand: false, sequenceIds: [], sequences: {} },
-    3: { title: 'ONSET', isExpand: false, sequenceIds: [], sequences: {} },
-    4: { title: 'CAPS', isExpand: false, sequenceIds: [], sequences: {} },
+    2: { title: 'RND', isExpand: false, sequenceIds: [] },
+    3: { title: 'ONSET', isExpand: false, sequenceIds: [] },
+    4: { title: 'CAPS', isExpand: false, sequenceIds: [] },
   };
 
-  get folderIds() {
-    return Object.keys(this.folders);
+  sequences: ISequences = {
+    5: {
+      title: 'INFC',
+      isExpand: false,
+      shotIds: ['6', '7', '8', '9', '10', '11', '12', '13'],
+    },
+  };
+
+  shots: IShots = {
+    6: 'INFC_0010',
+    7: 'INFC_0020',
+    8: 'INFC_0040',
+    9: 'INFC_0060',
+    10: 'INFC_0120',
+    11: 'INFC_0250',
+    12: 'INFC_0280',
+    13: 'INFC_0010',
+  };
+
+  activeItemId = '1';
+
+  setActiveItemId(id: string) {
+    this.activeItemId = id;
   }
 
   toggleFolderExpand(id: string) {
@@ -59,10 +69,10 @@ class Store {
     this.folders[id].isExpand = !isExpand;
   }
 
-  toggleSequenceExpand(folderId: string, sequenceId: string) {
-    const { isExpand } = this.folders[folderId].sequences[sequenceId];
+  toggleSequenceExpand(id: string) {
+    const { isExpand } = this.sequences[id];
 
-    this.folders[folderId].sequences[sequenceId].isExpand = !isExpand;
+    this.sequences[id].isExpand = !isExpand;
   }
 }
 

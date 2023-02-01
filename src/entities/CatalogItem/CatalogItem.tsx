@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FolderIcon from '@mui/icons-material/Folder';
@@ -10,6 +8,8 @@ import { Box, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { observer } from 'mobx-react-lite';
 
+import { catalogStore } from '../../vidgets/Catalog/Catalog.store';
+
 type CatalogItemType = 'folder' | 'sequence' | 'shot';
 
 interface ICatalogItem {
@@ -17,7 +17,6 @@ interface ICatalogItem {
   id: string;
   title: string;
   isExpand?: boolean;
-  onClick: () => void;
 }
 
 const leftPaddingMap = {
@@ -46,12 +45,18 @@ const StyledCatalogItem = styled(Box, {
   },
 }));
 
-export const CatalogItem = observer(({ type, id, title, isExpand, onClick }: ICatalogItem) => {
-  const [isActive, setIsActive] = useState(false);
+export const CatalogItem = observer(({ type, id, title, isExpand }: ICatalogItem) => {
+  const isActive = catalogStore.activeItemId === id;
 
   const handleClick = () => {
-    onClick();
-    setIsActive(!isActive);
+    if (type === 'folder') {
+      catalogStore.toggleFolderExpand(id);
+    }
+
+    if (type === 'sequence') {
+      catalogStore.toggleSequenceExpand(id);
+    }
+    catalogStore.setActiveItemId(id);
   };
 
   return (
