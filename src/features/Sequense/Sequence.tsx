@@ -10,7 +10,7 @@ interface ISequence {
   title: string;
   isExpand: boolean;
   shotIds?: string[];
-  shots: IShots;
+  shots?: IShots;
   parentId: string;
 }
 export const Sequence = observer(({ id, title, isExpand, shotIds, shots, parentId }: ISequence) => {
@@ -23,10 +23,11 @@ export const Sequence = observer(({ id, title, isExpand, shotIds, shots, parentI
       <CatalogItem type="sequence" id={id} title={title} isExpand={isExpand} onClick={handleClick} />
       {isExpand && (
         <Stack>
-          {shotIds?.map(id => {
-            const title = shots[id];
-            return <CatalogItem type="shot" key={id} id={id} title={title} onClick={handleClick} />;
-          })}
+          {shots &&
+            shotIds?.map(id => {
+              const title = shots[id];
+              return <CatalogItem type="shot" key={id} id={id} title={title} onClick={handleClick} />;
+            })}
         </Stack>
       )}
     </>
