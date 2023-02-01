@@ -1,4 +1,10 @@
-import { createTheme } from '@mui/material';
+import { createTheme, PaletteColorOptions } from '@mui/material';
+
+declare module '@mui/material/styles' {
+  interface PaletteOptions {
+    folder: PaletteColorOptions;
+  }
+}
 
 export const theme = createTheme({
   palette: {
