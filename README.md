@@ -1,8 +1,8 @@
 # Catalog tree
 
-## Test task for CJ VFX
+Test task for CJ VFX
 
-Demo: https://coin-select.netlify.app
+Demo: https://catalog-tree.netlify.app
 
 ## Available Scripts
 
@@ -12,7 +12,7 @@ Demo: https://coin-select.netlify.app
 yarn dev
 ```
 
-## Техзадание
+### Техзадание
 
 Необходимо написать сайт на React js (backend реализовывать не нужно). Макет figma находится по ссылке: https://www.figma.com/file/6z2L0FqQRHMbRbrIpOKFhd/CJ-TEST
 
