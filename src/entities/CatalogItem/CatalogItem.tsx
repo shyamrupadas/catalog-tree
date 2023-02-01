@@ -5,19 +5,44 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import FolderIcon from '@mui/icons-material/Folder';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import { Box, Stack, Typography } from '@mui/material';
+import MovieIcon from '@mui/icons-material/Movie';
+import { Box, Typography } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import { observer } from 'mobx-react-lite';
 
 import { catalogStore } from '../../vidgets/Catalog/Catalog.store';
 
+type CatalogItemType = 'folder' | 'sequence' | 'shot';
+
 interface ICatalogItem {
+  type: CatalogItemType;
   id: string;
   title: string;
   isExpand?: boolean;
   onClick: () => void;
 }
 
-export const CatalogItem = observer(({ id, title, isExpand, onClick }: ICatalogItem) => {
+const leftPaddingMap = {
+  folder: '14px',
+  sequence: '28px',
+  shot: '42px',
+};
+
+const StyledCatalogItem = styled(Box)<{ isActive?: boolean; type: CatalogItemType }>(({ isActive, type }) => ({
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  backgroundColor: isActive && '#2e2e2e',
+  borderRight: isActive && '1px solid #ffb800',
+  paddingRight: '16.5px',
+  paddingLeft: leftPaddingMap[type],
+  cursor: 'default',
+  '&:hover': {
+    backgroundColor: '#2e2e2e',
+  },
+}));
+
+export const CatalogItem = observer(({ type, id, title, isExpand, onClick }: ICatalogItem) => {
   const [isActive, setIsActive] = useState(false);
 
   const handleClick = () => {
@@ -27,27 +52,21 @@ export const CatalogItem = observer(({ id, title, isExpand, onClick }: ICatalogI
 
   return (
     <>
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
-        height={'26px'}
-        p="0 16.5px 0 14px"
-        bgcolor={isActive ? '#2e2e2e' : ''}
-        onClick={handleClick}
-      >
+      <StyledCatalogItem isActive={isActive} type={type} height={'26px'} onClick={handleClick}>
         <Box display={'flex'}>
           {isExpand ? <KeyboardArrowDownIcon fontSize="small" /> : <KeyboardArrowRightIcon fontSize="small" />}
-          <FolderIcon fontSize="small" color="folder" />
+
+          {type === 'shot' ? <MovieIcon fontSize="small" color="folder" /> : <FolderIcon fontSize="small" color="folder" />}
           <Typography ml="7.5px">{title}</Typography>
         </Box>
+
         {isActive && (
           <Box>
             <AddBoxIcon fontSize="9" />
             <DeleteIcon fontSize="9" />
           </Box>
         )}
-      </Box>
+      </StyledCatalogItem>
     </>
   );
 });

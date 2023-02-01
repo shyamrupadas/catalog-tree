@@ -21,9 +21,9 @@ export const Folder = observer(({ id, title, isExpand, sequenceIds, sequences }:
 
   return (
     <>
-      <CatalogItem title={title} id={id} isExpand={isExpand} onClick={handleClick} />
+      <CatalogItem type="folder" title={title} id={id} isExpand={isExpand} onClick={handleClick} />
       {isExpand && (
-        <Stack pl={2}>
+        <Stack>
           {sequenceIds?.map(sequenceId => {
             const { title, isExpand, shotIds, shots } = sequences[sequenceId];
             return <Sequence key={sequenceId} parentId={id} id={sequenceId} title={title} isExpand={isExpand} shotIds={shotIds} shots={shots} />;

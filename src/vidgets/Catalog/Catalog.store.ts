@@ -29,7 +29,7 @@ class Store {
       sequences: {
         5: {
           title: 'INFC',
-          isExpand: true,
+          isExpand: false,
           shotIds: ['6', '7', '8', '9', '10', '11', '12', '13'],
           shots: {
             6: 'INFC_0010',

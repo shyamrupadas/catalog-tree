@@ -20,12 +20,12 @@ export const Sequence = observer(({ id, title, isExpand, shotIds, shots, parentI
 
   return (
     <>
-      <CatalogItem id={id} title={title} isExpand={isExpand} onClick={handleClick} />
+      <CatalogItem type="sequence" id={id} title={title} isExpand={isExpand} onClick={handleClick} />
       {isExpand && (
-        <Stack pl={2}>
+        <Stack>
           {shotIds?.map(id => {
             const title = shots[id];
-            return <CatalogItem key={id} id={id} title={title} onClick={handleClick} />;
+            return <CatalogItem type="shot" key={id} id={id} title={title} onClick={handleClick} />;
           })}
         </Stack>
       )}
