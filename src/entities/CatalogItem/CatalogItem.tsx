@@ -70,11 +70,13 @@ export const CatalogItem = observer(({ type, id, title, isExpand, parentId }: IC
     setActiveItemType(type);
   };
 
-  const handleAdd = () => {
+  const handleAdd = (e: React.MouseEvent) => {
+    e.stopPropagation();
     openAddModal();
   };
 
-  const handleDelete = () => {
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
     openDeleteModal();
 
     if (parentId) {
