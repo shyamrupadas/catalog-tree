@@ -6,11 +6,6 @@ body,
 .app {
   height: 100%;
   width: 100%;
-}
-
-#root {
-  font-family: 'Roboto', sans-serif;
   font-size: 14px;
   line-height: 16px;
-  font-weight: 300;
 }

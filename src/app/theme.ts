@@ -21,4 +21,11 @@ export const theme = createTheme({
       primary: '#cecece',
     },
   },
+  typography: {
+    fontWeightRegular: 300,
+    fontWeightMedium: 400,
+    body1: {
+      lineHeight: 1.2,
+    },
+  },
 });
