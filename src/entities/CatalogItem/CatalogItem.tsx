@@ -92,7 +92,9 @@ export const CatalogItem = observer(({ type, id, title, isExpand, parentId }: IC
           {!isExpand && type !== 'shots' && <KeyboardArrowRightIcon fontSize="small" />}
 
           {type === 'shots' ? <MovieIcon fontSize="small" color="info" /> : <FolderIcon fontSize="small" color="info" />}
-          <Typography ml="7.5px">{title}</Typography>
+          <Typography fontWeight="medium" ml="7.5px">
+            {title}
+          </Typography>
         </Box>
 
         {isActive && (
