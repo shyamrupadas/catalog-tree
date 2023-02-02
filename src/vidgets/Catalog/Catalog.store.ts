@@ -1,4 +1,5 @@
 import { makeAutoObservable } from 'mobx';
+import { v4 as uuidv4 } from 'uuid';
 
 export interface IFolders {
   [key: string]: {
@@ -56,7 +57,7 @@ class Store {
     10: 'INFC_0120',
     11: 'INFC_0250',
     12: 'INFC_0280',
-    13: 'INFC_0010',
+    13: 'INFC_0340',
   };
 
   activeItemId = '5';
@@ -107,6 +108,38 @@ class Store {
 
   setActiveItemParentId = (id: string) => {
     this.activeItemParentId = id;
+  };
+
+  addCatalogItem = (title: string) => {
+    if (this.activeItemType === 'folders') {
+      this.addSequence(title);
+    }
+
+    if (this.activeItemType === 'sequences') {
+      this.addShot(title);
+    }
+  };
+
+  addSequence = (title: string) => {
+    const { sequenceIds } = this.folders[this.activeItemId];
+    const id = uuidv4();
+
+    sequenceIds.push(id);
+
+    this.sequences[id] = {
+      title,
+      isExpand: false,
+      shotIds: [],
+    };
+  };
+
+  addShot = (title: string) => {
+    const { shotIds } = this.sequences[this.activeItemId];
+    const id = uuidv4();
+
+    shotIds.push(id);
+
+    this.shots[id] = title;
   };
 
   deleteCatalogItem = () => {

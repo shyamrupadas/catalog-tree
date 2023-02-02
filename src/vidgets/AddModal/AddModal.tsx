@@ -1,7 +1,8 @@
+import { useState } from 'react';
+
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import CloseIcon from '@mui/icons-material/Close';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Box, Button, IconButton, Input, InputBase, Modal, TextField, Typography } from '@mui/material';
+import { Box, Button, IconButton, InputBase, Modal, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { observer } from 'mobx-react-lite';
 
@@ -17,14 +18,17 @@ const StyledBox = styled(Box)(() => ({
 }));
 
 export const AddModal = observer(() => {
-  const { isAddModalOpen, closeAddModal } = catalogStore;
+  const { isAddModalOpen, closeAddModal, addCatalogItem } = catalogStore;
+
+  const [title, setTitle] = useState('');
 
   const handleClose = () => {
     closeAddModal();
   };
 
   const handleAdd = () => {
-    console.log('add');
+    closeAddModal();
+    addCatalogItem(title);
   };
 
   return (
@@ -52,7 +56,7 @@ export const AddModal = observer(() => {
             <Typography>Enter the name:</Typography>
           </Box>
           <Box display="flex" mt="20px" justifyContent="space-between" height="25px">
-            <InputBase fullWidth />
+            <InputBase fullWidth value={title} onChange={e => setTitle(e.target.value)} />
             <Button fullWidth variant="contained" onClick={handleAdd} startIcon={<AddBoxIcon />}>
               Add shot
             </Button>
