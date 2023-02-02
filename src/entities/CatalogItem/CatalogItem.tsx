@@ -4,25 +4,16 @@ import FolderIcon from '@mui/icons-material/Folder';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import MovieIcon from '@mui/icons-material/Movie';
-import { Box, Typography } from '@mui/material';
+import { Box, IconButton, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { observer } from 'mobx-react-lite';
 
-import { catalogStore } from '../../vidgets/Catalog/Catalog.store';
-
-type CatalogItemType = 'folder' | 'sequence' | 'shot';
-
-interface ICatalogItem {
-  type: CatalogItemType;
-  id: string;
-  title: string;
-  isExpand?: boolean;
-}
+import { CatalogItemType, catalogStore } from '../../vidgets/Catalog/Catalog.store';
 
 const leftPaddingMap = {
-  folder: '14px',
-  sequence: '28px',
-  shot: '42px',
+  folders: '14px',
+  sequences: '28px',
+  shots: '60px',
 };
 
 interface CatalogItemProps {
@@ -37,7 +28,7 @@ const StyledCatalogItem = styled(Box, {
   alignItems: 'center',
   backgroundColor: isActive ? '#2e2e2e' : '',
   borderRight: isActive ? '1px solid #ffb800' : '',
-  paddingRight: '16.5px',
+  paddingRight: '6.5px',
   paddingLeft: leftPaddingMap[type],
   cursor: 'default',
   '&:hover': {
@@ -45,34 +36,59 @@ const StyledCatalogItem = styled(Box, {
   },
 }));
 
-export const CatalogItem = observer(({ type, id, title, isExpand }: ICatalogItem) => {
-  const isActive = catalogStore.activeItemId === id;
+interface ICatalogItem {
+  type: CatalogItemType;
+  id: string;
+  title: string;
+  isExpand?: boolean;
+  parentId?: string;
+}
+
+export const CatalogItem = observer(({ type, id, title, isExpand, parentId }: ICatalogItem) => {
+  const { activeItemId, toggleFolderExpand, toggleSequenceExpand, setActiveItemId, setActiveItemType, setActiveItemParentId, openDeleteModal } =
+    catalogStore;
+
+  const isActive = activeItemId === id;
 
   const handleClick = () => {
-    if (type === 'folder') {
-      catalogStore.toggleFolderExpand(id);
+    if (type === 'folders') {
+      toggleFolderExpand(id);
     }
 
-    if (type === 'sequence') {
-      catalogStore.toggleSequenceExpand(id);
+    if (type === 'sequences') {
+      toggleSequenceExpand(id);
     }
-    catalogStore.setActiveItemId(id);
+    setActiveItemId(id);
+    setActiveItemType(type);
+  };
+
+  const handleDelete = () => {
+    openDeleteModal();
+
+    if (parentId) {
+      setActiveItemParentId(parentId);
+    }
   };
 
   return (
     <>
       <StyledCatalogItem isActive={isActive} type={type} height={'26px'} onClick={handleClick}>
         <Box display={'flex'}>
-          {isExpand ? <KeyboardArrowDownIcon fontSize="small" /> : <KeyboardArrowRightIcon fontSize="small" />}
+          {isExpand && type !== 'shots' && <KeyboardArrowDownIcon fontSize="small" />}
+          {!isExpand && type !== 'shots' && <KeyboardArrowRightIcon fontSize="small" />}
 
-          {type === 'shot' ? <MovieIcon fontSize="small" color="info" /> : <FolderIcon fontSize="small" color="info" />}
+          {type === 'shots' ? <MovieIcon fontSize="small" color="info" /> : <FolderIcon fontSize="small" color="info" />}
           <Typography ml="7.5px">{title}</Typography>
         </Box>
 
         {isActive && (
           <Box>
-            <AddBoxIcon fontSize="small" />
-            <DeleteIcon fontSize="small" />
+            <IconButton color="inherit">
+              <AddBoxIcon fontSize="small" />
+            </IconButton>
+            <IconButton color="inherit" onClick={handleDelete}>
+              <DeleteIcon fontSize="small" />
+            </IconButton>
           </Box>
         )}
       </StyledCatalogItem>

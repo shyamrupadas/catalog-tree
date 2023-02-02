@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import { Stack } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
@@ -8,17 +7,21 @@ import { Shot } from '../Shot';
 
 interface ISequence {
   id: string;
+  parentId: string;
 }
-export const Sequence = observer(({ id }: ISequence) => {
+export const Sequence = observer(({ id, parentId }: ISequence) => {
   const { title, isExpand, shotIds } = catalogStore.sequences[id];
 
+  const handleDeleteModalOpen = () => {
+    catalogStore.openDeleteModal();
+  };
   return (
     <>
-      <CatalogItem type="sequence" id={id} title={title} isExpand={isExpand} />
+      <CatalogItem type="sequences" id={id} title={title} isExpand={isExpand} onDeleteClick={handleDeleteModalOpen} parentId={parentId} />
       {isExpand && (
         <Stack>
-          {shotIds?.map(id => (
-            <Shot key={id} id={id} />
+          {shotIds?.map(shotId => (
+            <Shot key={shotId} id={shotId} parentId={id} />
           ))}
         </Stack>
       )}

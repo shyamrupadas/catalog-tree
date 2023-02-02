@@ -5,9 +5,10 @@ import { catalogStore } from '../../vidgets/Catalog/Catalog.store';
 
 interface IShot {
   id: string;
+  parentId: string;
 }
-export const Shot = observer(({ id }: IShot) => {
+export const Shot = observer(({ id, parentId }: IShot) => {
   const title = catalogStore.shots[id];
 
-  return <CatalogItem type="shot" id={id} title={title} />;
+  return <CatalogItem type="shots" id={id} title={title} parentId={parentId} />;
 });

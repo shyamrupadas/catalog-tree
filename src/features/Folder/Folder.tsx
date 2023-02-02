@@ -1,4 +1,3 @@
-/* eslint-disable no-shadow */
 import { Stack } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
@@ -15,11 +14,11 @@ export const Folder = observer(({ id }: IFolder) => {
 
   return (
     <>
-      <CatalogItem type="folder" title={title} id={id} isExpand={isExpand} />
+      <CatalogItem type="folders" title={title} id={id} isExpand={isExpand} />
       {isExpand && (
         <Stack>
           {sequenceIds?.map(sequenceId => {
-            return <Sequence key={sequenceId} id={sequenceId} />;
+            return <Sequence key={sequenceId} id={sequenceId} parentId={id} />;
           })}
         </Stack>
       )}

@@ -2,6 +2,7 @@ import { Box, Stack } from '@mui/material';
 import { observer } from 'mobx-react-lite';
 
 import { Folder } from '../../features/Folder';
+import { DeleteModal } from '../DeleteModal';
 
 import { catalogStore } from './Catalog.store';
 
@@ -13,6 +14,7 @@ export const Catalog = observer(() => {
           <Folder key={id} id={id} />
         ))}
       </Stack>
+      <DeleteModal />
     </Box>
   );
 });

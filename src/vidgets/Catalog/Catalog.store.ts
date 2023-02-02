@@ -20,6 +20,8 @@ export interface IShots {
   [key: string]: string;
 }
 
+export type CatalogItemType = 'folders' | 'sequences' | 'shots';
+
 class Store {
   constructor() {
     makeAutoObservable(this);
@@ -41,7 +43,7 @@ class Store {
   sequences: ISequences = {
     5: {
       title: 'INFC',
-      isExpand: false,
+      isExpand: true,
       shotIds: ['6', '7', '8', '9', '10', '11', '12', '13'],
     },
   };
@@ -57,23 +59,83 @@ class Store {
     13: 'INFC_0010',
   };
 
-  activeItemId = '1';
+  activeItemId = '5';
 
-  setActiveItemId(id: string) {
-    this.activeItemId = id;
-  }
+  activeItemType: CatalogItemType = 'folders';
 
-  toggleFolderExpand(id: string) {
+  activeItemParentId = '1';
+
+  isDeleteModalOpen = false;
+
+  toggleFolderExpand = (id: string) => {
     const { isExpand } = this.folders[id];
 
     this.folders[id].isExpand = !isExpand;
-  }
+  };
 
-  toggleSequenceExpand(id: string) {
+  toggleSequenceExpand = (id: string) => {
     const { isExpand } = this.sequences[id];
 
     this.sequences[id].isExpand = !isExpand;
-  }
+  };
+
+  openDeleteModal = () => {
+    this.isDeleteModalOpen = true;
+  };
+
+  closeDeleteModal = () => {
+    this.isDeleteModalOpen = false;
+  };
+
+  setActiveItemId = (id: string) => {
+    this.activeItemId = id;
+  };
+
+  setActiveItemType = (type: CatalogItemType) => {
+    this.activeItemType = type;
+  };
+
+  setActiveItemParentId = (id: string) => {
+    this.activeItemParentId = id;
+  };
+
+  deleteCatalogItem = () => {
+    switch (this.activeItemType) {
+      case 'folders':
+        console.log('delete folder');
+        break;
+      case 'sequences':
+        this.deleteSequence();
+        break;
+      case 'shots':
+        this.deleteShot(this.activeItemId);
+        break;
+      default:
+        console.log('default');
+    }
+  };
+
+  deleteSequence = () => {
+    const id = this.activeItemId;
+    const { sequenceIds } = this.folders[this.activeItemParentId];
+    const index = sequenceIds.indexOf(id);
+
+    sequenceIds.splice(index, 1);
+
+    this.sequences[id].shotIds.forEach(shotId => {
+      this.deleteShot(shotId);
+    });
+
+    delete this.sequences[id];
+  };
+
+  deleteShot = (id: string) => {
+    const { shotIds } = this.sequences[this.activeItemParentId];
+    const index = shotIds.indexOf(id);
+    shotIds.splice(index, 1);
+
+    delete this.shots[id];
+  };
 }
 
 export const catalogStore = new Store();
