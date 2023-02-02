@@ -12,12 +12,9 @@ interface ISequence {
 export const Sequence = observer(({ id, parentId }: ISequence) => {
   const { title, isExpand, shotIds } = catalogStore.sequences[id];
 
-  const handleDeleteModalOpen = () => {
-    catalogStore.openDeleteModal();
-  };
   return (
     <>
-      <CatalogItem type="sequences" id={id} title={title} isExpand={isExpand} onDeleteClick={handleDeleteModalOpen} parentId={parentId} />
+      <CatalogItem type="sequences" id={id} title={title} isExpand={isExpand} parentId={parentId} />
       {isExpand && (
         <Stack>
           {shotIds?.map(shotId => (
