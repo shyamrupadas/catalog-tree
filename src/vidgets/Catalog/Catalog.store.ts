@@ -67,6 +67,8 @@ class Store {
 
   isDeleteModalOpen = false;
 
+  isAddModalOpen = false;
+
   toggleFolderExpand = (id: string) => {
     const { isExpand } = this.folders[id];
 
@@ -85,6 +87,14 @@ class Store {
 
   closeDeleteModal = () => {
     this.isDeleteModalOpen = false;
+  };
+
+  openAddModal = () => {
+    this.isAddModalOpen = true;
+  };
+
+  closeAddModal = () => {
+    this.isAddModalOpen = false;
   };
 
   setActiveItemId = (id: string) => {

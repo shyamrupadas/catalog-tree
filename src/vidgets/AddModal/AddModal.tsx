@@ -1,6 +1,7 @@
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import CloseIcon from '@mui/icons-material/Close';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Box, Button, IconButton, Modal, Typography } from '@mui/material';
+import { Box, Button, IconButton, Input, InputBase, Modal, TextField, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { observer } from 'mobx-react-lite';
 
@@ -12,28 +13,27 @@ const StyledBox = styled(Box)(() => ({
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: '435px',
-  height: '193px',
+  height: '117px',
 }));
 
-export const DeleteModal = observer(() => {
-  const { isDeleteModalOpen, closeDeleteModal, deleteCatalogItem } = catalogStore;
+export const AddModal = observer(() => {
+  const { isAddModalOpen, closeAddModal } = catalogStore;
 
   const handleClose = () => {
-    closeDeleteModal();
+    closeAddModal();
   };
 
-  const handleDelete = () => {
-    closeDeleteModal();
-    deleteCatalogItem();
+  const handleAdd = () => {
+    console.log('add');
   };
 
   return (
-    <Modal open={isDeleteModalOpen} onClose={closeDeleteModal}>
+    <Modal open={isAddModalOpen} onClose={closeAddModal}>
       <StyledBox>
         <Box display="flex" justifyContent="space-between" alignItems="center" bgcolor="#2a2a2a" height="40px" p="0 14px">
           <Box display="flex">
-            <DeleteIcon fontSize="small" />
-            <Typography pl="10px">Delete sequence</Typography>
+            <AddBoxIcon fontSize="small" />
+            <Typography pl="10px">Add shot</Typography>
           </Box>
           <IconButton onClick={handleClose} color="inherit">
             <CloseIcon fontSize="small" />
@@ -49,15 +49,12 @@ export const DeleteModal = observer(() => {
           justifyContent="space-between"
         >
           <Box>
-            <Typography>The sequence INFC and related objects will be permanently deleted and cannot be restored.</Typography>
-            <Typography mt="20px">Are you sure you want to continue?</Typography>
+            <Typography>Enter the name:</Typography>
           </Box>
           <Box display="flex" mt="20px" justifyContent="space-between" height="25px">
-            <Button fullWidth variant="contained" onClick={handleClose}>
-              Cancel
-            </Button>
-            <Button fullWidth variant="contained" startIcon={<DeleteIcon />} onClick={handleDelete}>
-              Delete
+            <InputBase fullWidth />
+            <Button fullWidth variant="contained" onClick={handleAdd} startIcon={<AddBoxIcon />}>
+              Add shot
             </Button>
           </Box>
         </Box>
