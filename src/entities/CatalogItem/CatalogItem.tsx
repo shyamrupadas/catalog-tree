@@ -97,12 +97,16 @@ export const CatalogItem = observer(({ type, id, title, isExpand, parentId }: IC
 
         {isActive && (
           <Box>
-            <IconButton color="inherit" onClick={handleAdd}>
-              <AddBoxIcon fontSize="small" />
-            </IconButton>
-            <IconButton color="inherit" onClick={handleDelete}>
-              <DeleteIcon fontSize="small" />
-            </IconButton>
+            {type !== 'shots' && (
+              <IconButton color="inherit" onClick={handleAdd}>
+                <AddBoxIcon fontSize="small" />
+              </IconButton>
+            )}
+            {type !== 'folders' && (
+              <IconButton color="inherit" onClick={handleDelete}>
+                <DeleteIcon fontSize="small" />
+              </IconButton>
+            )}
           </Box>
         )}
       </StyledCatalogItem>

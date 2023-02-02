@@ -62,7 +62,7 @@ class Store {
 
   activeItemId = '5';
 
-  activeItemType: CatalogItemType = 'folders';
+  activeItemType: CatalogItemType = 'sequences';
 
   activeItemParentId = '1';
 
@@ -143,18 +143,12 @@ class Store {
   };
 
   deleteCatalogItem = () => {
-    switch (this.activeItemType) {
-      case 'folders':
-        console.log('delete folder');
-        break;
-      case 'sequences':
-        this.deleteSequence();
-        break;
-      case 'shots':
-        this.deleteShot(this.activeItemId);
-        break;
-      default:
-        console.log('default');
+    if (this.activeItemType === 'sequences') {
+      this.deleteSequence();
+    }
+
+    if (this.activeItemType === 'shots') {
+      this.deleteShot(this.activeItemId);
     }
   };
 
