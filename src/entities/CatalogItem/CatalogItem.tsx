@@ -77,18 +77,17 @@ export const CatalogItem = observer(({ type, id, title, isExpand, parentId, isAc
   return (
     <>
       <StyledCatalogItem isActive={isActive} type={type} height={'26px'} onClick={handleClick}>
-        <Box display={'flex'} overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" width="150px">
+        <Box display={'flex'} whiteSpace="nowrap" textOverflow="ellipsis" width="145px">
           {isExpand && type !== 'shots' && <KeyboardArrowDownIcon />}
           {!isExpand && type !== 'shots' && <KeyboardArrowRightIcon />}
-
           {type === 'shots' ? <MovieIcon color="info" /> : <FolderIcon color="info" />}
-          <Typography fontWeight="medium" ml="3.5px">
+          <Typography fontWeight="medium" ml="3.5px" whiteSpace="nowrap" overflow="hidden" textOverflow="ellipsis" width="375px">
             {title}
           </Typography>
         </Box>
 
         {isActive && (
-          <Box>
+          <Box ml="15px">
             {type !== 'shots' && (
               <StyledIconButton color="inherit" onClick={handleAdd}>
                 <AddBoxIcon />

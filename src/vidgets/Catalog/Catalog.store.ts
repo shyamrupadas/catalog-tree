@@ -36,7 +36,7 @@ class Store {
       isExpand: true,
       sequenceIds: ['5'],
     },
-    2: { title: 'RND', isExpand: false, sequenceIds: [] },
+    2: { title: 'CLICK_ME', isExpand: false, sequenceIds: ['14', '15'] },
     3: { title: 'ONSET', isExpand: false, sequenceIds: [] },
     4: { title: 'CAPS', isExpand: false, sequenceIds: [] },
   };
@@ -46,6 +46,16 @@ class Store {
       title: 'INFC',
       isExpand: true,
       shotIds: ['6', '7', '8', '9', '10', '11', '12', '13'],
+    },
+    15: {
+      title: 'FOR SCROLL',
+      isExpand: false,
+      shotIds: ['16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35'],
+    },
+    14: {
+      title: 'LONG_TITLEEEEEEEEEEEE: 1234567890',
+      isExpand: false,
+      shotIds: [],
     },
   };
 
@@ -58,6 +68,26 @@ class Store {
     11: 'INFC_0250',
     12: 'INFC_0280',
     13: 'INFC_0340',
+    16: 'INFC_0340',
+    17: 'INFC_0340',
+    18: 'INFC_0340',
+    19: 'INFC_0340',
+    20: 'INFC_0340',
+    21: 'INFC_0340',
+    22: 'INFC_0340',
+    23: 'INFC_0340',
+    24: 'INFC_0340',
+    25: 'INFC_0340',
+    26: 'INFC_0340',
+    27: 'INFC_0340',
+    28: 'INFC_0340',
+    29: 'INFC_0340',
+    30: 'INFC_0340',
+    31: 'INFC_0340',
+    32: 'INFC_0340',
+    33: 'INFC_0340',
+    34: 'INFC_0340',
+    35: 'INFC_0340',
   };
 
   activeItemId = '5';
