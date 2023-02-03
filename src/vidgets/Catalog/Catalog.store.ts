@@ -70,6 +70,18 @@ class Store {
 
   isAddModalOpen = false;
 
+  get activeCatalogItemTittle() {
+    if (this.activeItemType === 'sequences') {
+      return this.sequences[this.activeItemId] && this.sequences[this.activeItemId].title;
+    }
+
+    if (this.activeItemType === 'shots') {
+      return this.shots[this.activeItemId] && this.shots[this.activeItemId];
+    }
+
+    return '';
+  }
+
   toggleFolderExpand = (id: string) => {
     const { isExpand } = this.folders[id];
 

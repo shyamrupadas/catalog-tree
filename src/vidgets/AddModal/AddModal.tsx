@@ -29,13 +29,17 @@ export const AddModal = observer(() => {
 
   const [title, setTitle] = useState('');
 
+  const clearTittle = () => setTitle('');
+
   const handleClose = () => {
     closeAddModal();
+    clearTittle();
   };
 
   const handleAdd = () => {
     closeAddModal();
     addCatalogItem(title);
+    clearTittle();
   };
 
   return (
