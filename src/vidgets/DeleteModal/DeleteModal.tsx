@@ -17,7 +17,7 @@ const StyledDeleteButton = styled(Button)(() => ({
 }));
 
 export const DeleteModal = observer(() => {
-  const { isDeleteModalOpen, closeDeleteModal, deleteCatalogItem, activeCatalogItemTittle } = catalogStore;
+  const { isDeleteModalOpen, closeDeleteModal, deleteCatalogItem, activeCatalogItemTittle, activeItemType } = catalogStore;
 
   const handleClose = () => {
     closeDeleteModal();
@@ -50,8 +50,8 @@ export const DeleteModal = observer(() => {
       >
         <Box>
           <Typography>
-            The sequence <span style={{ fontWeight: '700' }}>{activeCatalogItemTittle}</span> and related objects will be permanently deleted and
-            cannot be restored.
+            The {activeItemType === 'sequences' ? 'sequence' : 'object'} <span style={{ fontWeight: '700' }}>{activeCatalogItemTittle}</span>
+            {activeItemType === 'sequences' && ' and related objects'} will be permanently deleted and cannot be restored.
           </Typography>
           <Typography mt="20px">Are you sure you want to continue?</Typography>
         </Box>
