@@ -77,7 +77,7 @@ export const CatalogItem = observer(({ type, id, title, isExpand, parentId, isAc
   return (
     <>
       <StyledCatalogItem isActive={isActive} type={type} height={'26px'} onClick={handleClick}>
-        <Box display={'flex'}>
+        <Box display={'flex'} overflow="hidden" whiteSpace="nowrap" textOverflow="ellipsis" width="150px">
           {isExpand && type !== 'shots' && <KeyboardArrowDownIcon />}
           {!isExpand && type !== 'shots' && <KeyboardArrowRightIcon />}
 
