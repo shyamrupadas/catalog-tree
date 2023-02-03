@@ -1,12 +1,12 @@
 import { useState } from 'react';
 
-import AddBoxIcon from '@mui/icons-material/AddBox';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, IconButton, InputBase, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { observer } from 'mobx-react-lite';
 
 import { AppModal } from '../../entities/AppModal';
+import { AddBoxIcon } from '../../shared/Icon';
 import { catalogStore } from '../Catalog/Catalog.store';
 
 const StyledInput = styled(InputBase)(() => ({
@@ -33,7 +33,7 @@ export const AddModal = observer(() => {
     <AppModal open={isAddModalOpen} onClose={closeAddModal}>
       <Box display="flex" justifyContent="space-between" alignItems="center" bgcolor="#2a2a2a" height="40px" p="0 14px">
         <Box display="flex">
-          <AddBoxIcon fontSize="small" />
+          <AddBoxIcon />
           <Typography pl="10px">Add shot</Typography>
         </Box>
         <IconButton onClick={handleClose} color="inherit">

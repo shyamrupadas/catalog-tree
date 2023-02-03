@@ -1,19 +1,14 @@
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import DeleteIcon from '@mui/icons-material/Delete';
-import FolderIcon from '@mui/icons-material/Folder';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import MovieIcon from '@mui/icons-material/Movie';
 import { Box, IconButton, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { observer } from 'mobx-react-lite';
 
+import { AddBoxIcon, DeleteIcon, FolderIcon, KeyboardArrowDownIcon, KeyboardArrowRightIcon, MovieIcon } from '../../shared/Icon';
 import { CatalogItemType, catalogStore } from '../../vidgets/Catalog/Catalog.store';
 
 const leftPaddingMap = {
-  folders: '14px',
-  sequences: '28px',
-  shots: '60px',
+  folders: '5.5px',
+  sequences: '21.5px',
+  shots: '56.5px',
 };
 
 interface CatalogItemProps {
@@ -28,12 +23,16 @@ const StyledCatalogItem = styled(Box, {
   alignItems: 'center',
   backgroundColor: isActive ? '#2e2e2e' : '',
   borderRight: isActive ? '1px solid #ffb800' : '',
-  paddingRight: '6.5px',
+  paddingRight: '10.5px',
   paddingLeft: leftPaddingMap[type],
   cursor: 'default',
   '&:hover': {
     backgroundColor: '#2e2e2e',
   },
+}));
+
+const StyledIconButton = styled(IconButton)(() => ({
+  width: '18px',
 }));
 
 interface ICatalogItem {
@@ -79,11 +78,11 @@ export const CatalogItem = observer(({ type, id, title, isExpand, parentId, isAc
     <>
       <StyledCatalogItem isActive={isActive} type={type} height={'26px'} onClick={handleClick}>
         <Box display={'flex'}>
-          {isExpand && type !== 'shots' && <KeyboardArrowDownIcon fontSize="small" />}
-          {!isExpand && type !== 'shots' && <KeyboardArrowRightIcon fontSize="small" />}
+          {isExpand && type !== 'shots' && <KeyboardArrowDownIcon />}
+          {!isExpand && type !== 'shots' && <KeyboardArrowRightIcon />}
 
-          {type === 'shots' ? <MovieIcon fontSize="small" color="info" /> : <FolderIcon fontSize="small" color="info" />}
-          <Typography fontWeight="medium" ml="7.5px">
+          {type === 'shots' ? <MovieIcon color="info" /> : <FolderIcon color="info" />}
+          <Typography fontWeight="medium" ml="3.5px">
             {title}
           </Typography>
         </Box>
@@ -91,14 +90,14 @@ export const CatalogItem = observer(({ type, id, title, isExpand, parentId, isAc
         {isActive && (
           <Box>
             {type !== 'shots' && (
-              <IconButton color="inherit" onClick={handleAdd}>
-                <AddBoxIcon fontSize="small" />
-              </IconButton>
+              <StyledIconButton color="inherit" onClick={handleAdd}>
+                <AddBoxIcon />
+              </StyledIconButton>
             )}
             {type !== 'folders' && (
-              <IconButton color="inherit" onClick={handleDelete}>
-                <DeleteIcon fontSize="small" />
-              </IconButton>
+              <StyledIconButton color="inherit" onClick={handleDelete}>
+                <DeleteIcon />
+              </StyledIconButton>
             )}
           </Box>
         )}
