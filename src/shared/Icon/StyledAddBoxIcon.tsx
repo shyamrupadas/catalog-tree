@@ -3,4 +3,6 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 
 export const StyledAddBoxIcon = styled(AddBoxIcon)(() => ({
   height: '12px',
+  alignSelf: 'center',
+  margin: '0',
 }));
