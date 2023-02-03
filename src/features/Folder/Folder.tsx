@@ -12,9 +12,13 @@ interface IFolder {
 export const Folder = observer(({ id }: IFolder) => {
   const { title, isExpand, sequenceIds } = catalogStore.folders[id];
 
+  const { activeItemId } = catalogStore;
+
+  const isActive = activeItemId === id;
+
   return (
     <>
-      <CatalogItem type="folders" title={title} id={id} isExpand={isExpand} />
+      <CatalogItem type="folders" title={title} id={id} isExpand={isExpand} isActive={isActive} />
       {isExpand && (
         <Stack>
           {sequenceIds?.map(sequenceId => {

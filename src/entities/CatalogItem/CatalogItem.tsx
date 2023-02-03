@@ -42,21 +42,12 @@ interface ICatalogItem {
   title: string;
   isExpand?: boolean;
   parentId?: string;
+  isActive: boolean;
 }
 
-export const CatalogItem = observer(({ type, id, title, isExpand, parentId }: ICatalogItem) => {
-  const {
-    activeItemId,
-    toggleFolderExpand,
-    toggleSequenceExpand,
-    setActiveItemId,
-    setActiveItemType,
-    setActiveItemParentId,
-    openDeleteModal,
-    openAddModal,
-  } = catalogStore;
-
-  const isActive = activeItemId === id;
+export const CatalogItem = observer(({ type, id, title, isExpand, parentId, isActive }: ICatalogItem) => {
+  const { toggleFolderExpand, toggleSequenceExpand, setActiveItemId, setActiveItemType, setActiveItemParentId, openDeleteModal, openAddModal } =
+    catalogStore;
 
   const handleClick = () => {
     if (type === 'folders') {

@@ -9,6 +9,9 @@ interface IShot {
 }
 export const Shot = observer(({ id, parentId }: IShot) => {
   const title = catalogStore.shots[id];
+  const { activeItemId } = catalogStore;
 
-  return <CatalogItem type="shots" id={id} title={title} parentId={parentId} />;
+  const isActive = activeItemId === id;
+
+  return <CatalogItem type="shots" id={id} title={title} parentId={parentId} isActive={isActive} />;
 });
