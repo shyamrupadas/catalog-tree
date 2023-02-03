@@ -2,21 +2,12 @@ import { useState } from 'react';
 
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import CloseIcon from '@mui/icons-material/Close';
-import { Box, Button, IconButton, InputBase, Modal, Typography } from '@mui/material';
+import { Box, Button, IconButton, InputBase, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { observer } from 'mobx-react-lite';
 
 import { AppModal } from '../../entities/AppModal';
 import { catalogStore } from '../Catalog/Catalog.store';
-
-const StyledBox = styled(Box)(() => ({
-  position: 'absolute' as const,
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: '435px',
-  height: '117px',
-}));
 
 const StyledInput = styled(InputBase)(() => ({
   backgroundColor: '#232323',
