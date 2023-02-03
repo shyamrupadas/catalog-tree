@@ -18,6 +18,12 @@ const StyledBox = styled(Box)(() => ({
   height: '117px',
 }));
 
+const StyledInput = styled(InputBase)(() => ({
+  backgroundColor: '#232323',
+  border: '1px solid #333333',
+  borderRadius: '3px',
+}));
+
 export const AddModal = observer(() => {
   const { isAddModalOpen, closeAddModal, addCatalogItem } = catalogStore;
 
@@ -48,7 +54,7 @@ export const AddModal = observer(() => {
           <Typography>Enter the name:</Typography>
         </Box>
         <Box display="flex" mt="20px" justifyContent="space-between" height="25px">
-          <InputBase fullWidth value={title} onChange={e => setTitle(e.target.value)} />
+          <StyledInput fullWidth value={title} onChange={e => setTitle(e.target.value)} />
           <Button fullWidth variant="contained" onClick={handleAdd} startIcon={<AddBoxIcon />}>
             Add shot
           </Button>
