@@ -160,7 +160,7 @@ class Store {
     sequenceIds.splice(index, 1);
 
     this.sequences[id].shotIds.forEach(shotId => {
-      this.deleteShot(shotId);
+      delete this.shots[shotId];
     });
 
     delete this.sequences[id];
